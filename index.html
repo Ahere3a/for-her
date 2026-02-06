@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<!--
+  PERSONALIZE THIS FOR YOUR GIRLFRIEND
+  --------------------------------
+  1. Her name: change "Beautiful" in the first <h1> (or replace id="her-name" span content)
+  2. Your promise: edit the text in id="promise"
+  3. Celebration: edit id="celebration-line" and id="sign-off"
+  4. PHOTOS: Put your image files in the SAME FOLDER as this HTML file.
+     - Greeting page: update src="photo1.jpg", photo2.jpg, photo3.jpg to your filenames.
+     - Celebration page: update src="photo4.jpg", photo5.jpg (or delete an <img> line to remove a slot).
+     Use .jpg, .png, or .webp — just match the filename in the src="..." attribute.
+  Save and open in a browser, or host it and send her the link.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For You 💕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --rose: #c45c6a;
+      --rose-light: #e8a4ab;
+      --cream: #fdf6f0;
+      --gold: #c9a227;
+      --ink: #2d2327;
+      --shadow: rgba(45, 35, 39, 0.15);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(165deg, #fdf6f0 0%, #f5e6e0 40%, #edd5d0 100%);
+      font-family: 'Quicksand', sans-serif;
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      overflow-x: hidden;
+    }
+
+    .page {
+      text-align: center;
+      max-width: 420px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .page.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .page.hidden {
+      display: none !important;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.75rem, 5vw, 2.25rem);
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .sub {
+      font-size: 1rem;
+      color: var(--rose);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-btn {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.85rem 2rem;
+      border: 2px solid var(--rose);
+      background: transparent;
+      color: var(--rose);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+
+    .cta-btn:hover {
+      background: var(--rose);
+      color: white;
+      transform: scale(1.03);
+    }
+
+    .cta-btn:active {
+      transform: scale(0.98);
+    }
+
+    .hearts {
+      font-size: 1.5rem;
+      margin-top: 1.5rem;
+      letter-spacing: 0.3em;
+    }
+
+    /* Question page */
+    .promise {
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--ink);
+      margin-top: 1rem;
+      opacity: 0.9;
+    }
+
+    .choices {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .choice-btn {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.9rem 2.2rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .choice-btn.yes {
+      background: linear-gradient(135deg, var(--rose) 0%, #a84a56 100%);
+      color: white;
+      box-shadow: 0 6px 24px rgba(196, 92, 106, 0.4);
+    }
+
+    .choice-btn.yes:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 32px rgba(196, 92, 106, 0.5);
+    }
+
+    .choice-btn.no {
+      background: transparent;
+      color: var(--ink);
+      border: 2px solid var(--shadow);
+    }
+
+    .choice-btn.no:hover {
+      border-color: var(--rose-light);
+      color: var(--rose);
+    }
+
+    /* Celebration */
+    .celebration-emoji {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      animation: bounce 0.6s ease infinite alternate;
+    }
+
+    @keyframes bounce {
+      to { transform: scale(1.15); }
+    }
+
+    .celebration-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      color: var(--rose);
+      margin-bottom: 1rem;
+    }
+
+    .celebration-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+
+    .sign-off {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--ink);
+      margin: 1rem 0;
+    }
+
+    .screenshot-hint {
+      margin-top: 2rem;
+      padding: 1rem 1.25rem;
+      background: rgba(255,255,255,0.7);
+      border-radius: 12px;
+      font-size: 0.9rem;
+      color: var(--ink);
+      border: 1px dashed var(--rose-light);
+    }
+
+    /* Photo strips */
+    .photos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+    }
+
+    .photos.celebration-photos {
+      margin-bottom: 1rem;
+    }
+
+    .photo-frame {
+      flex: 0 0 auto;
+      width: 100px;
+      height: 100px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px var(--shadow);
+      border: 3px solid rgba(255,255,255,0.9);
+    }
+
+    .photos.celebration-photos .photo-frame {
+      width: 200px;
+      height: 200px;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--rose);
+      border-radius: 2px;
+      animation: confetti-fall 3s ease-out forwards;
+      opacity: 0;
+    }
+
+    .confetti-piece:nth-child(odd) { background: var(--gold); }
+    .confetti-piece:nth-child(3n) { background: var(--rose-light); }
+
+    @keyframes confetti-fall {
+      0% {
+        opacity: 1;
+        transform: translateY(-10vh) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(720deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- STEP 1: Greeting -->
+  <div id="step1" class="page active">
+    <h1>Hey <span id="her-name">Whitney</span>...</h1>
+    <p class="sub">I have something I want to ask you.</p>
+    <div class="photos celebration-photos">
+      <div class="photo-frame"><img src="whitney-greeting.png" alt="Whitney"></div>
+    </div>
+    <button class="cta-btn" onclick="showStep(2)">Click me</button>
+    <p class="hearts">❤️</p>
+  </div>
+
+  <!-- STEP 2: The question -->
+  <div id="step2" class="page">
+    <h1>Will you be my Valentine?</h1>
+    <div class="photos celebration-photos">
+      <div class="photo-frame"><img src="valentine-question.png" alt="Us"></div>
+    </div>
+    <p class="promise" id="promise">(i promise to have money to take you to hemmingways and have a big bouquet)</p>
+    <div class="choices">
+      <button class="choice-btn yes" onclick="sayYes()">YES!</button>
+      <button class="choice-btn no" onclick="shakeNo()">No</button>
+    </div>
+    <p class="hearts">🥰</p>
+  </div>
+
+  <!-- STEP 3: Celebration -->
+  <div id="step3" class="page">
+    <div class="confetti" id="confetti"></div>
+    <p class="celebration-emoji">🥰🎉</p>
+    <div class="photos celebration-photos">
+      <div class="photo-frame"><img src="celebration-yes.png" alt="Us"></div>
+    </div>
+    <h2 class="celebration-title" id="celebration-title">She said YES!</h2>
+    <p class="celebration-text" id="celebration-line">You just made me the happiest person in the world.</p>
+    <p class="sign-off" id="sign-off">nakupenda!!❤️</p>
+    <p class="screenshot-hint">Screenshot this and send it to me!</p>
+  </div>
+
+  <script>
+    function showStep(step) {
+      document.querySelectorAll('.page').forEach(el => {
+        el.classList.remove('active');
+        el.classList.add('hidden');
+      });
+      const next = document.getElementById('step' + step);
+      next.classList.remove('hidden');
+      next.offsetHeight; // reflow
+      next.classList.add('active');
+    }
+
+    function sayYes() {
+      showStep(3);
+      throwConfetti();
+    }
+
+    function shakeNo() {
+      const btn = document.querySelector('.choice-btn.no');
+      btn.style.animation = 'none';
+      btn.offsetHeight;
+      btn.style.animation = 'shake 0.5s ease';
+      setTimeout(() => { btn.style.animation = ''; }, 500);
+    }
+
+    function throwConfetti() {
+      const container = document.getElementById('confetti');
+      const colors = ['#c45c6a', '#e8a4ab', '#c9a227'];
+      for (let i = 0; i < 50; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + '%';
+        piece.style.animationDelay = Math.random() * 0.5 + 's';
+        piece.style.background = colors[i % 3];
+        container.appendChild(piece);
+        setTimeout(() => piece.remove(), 3500);
+      }
+    }
+  </script>
+  <style>
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+  </style>
+</body>
+</html>
